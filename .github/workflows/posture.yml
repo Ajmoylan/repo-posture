@@ -1,0 +1,56 @@
+# Automation demo: the scanner audits this repository on every push to main, weekly and on
+# demand, writes the report to the run's job summary, and fails if the score drops below the
+# policy threshold. Pass other repositories (space-separated) when running it manually.
+name: posture
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "41 5 * * 1"
+  workflow_dispatch:
+    inputs:
+      repositories:
+        description: "owner/repo list to scan (default: this repository)"
+        required: false
+      min-score:
+        description: "Minimum acceptable score (0-100)"
+        required: false
+        default: "80"
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          python-version: "3.12"
+          enable-cache: true
+
+      - name: Install
+        run: uv sync --locked --no-dev
+
+      # Inputs reach the shell only through environment variables, never by direct
+      # interpolation into the script (prevents workflow injection).
+      - name: Scan and publish the job summary
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          REPOSITORIES: ${{ inputs.repositories || github.repository }}
+          MIN_SCORE: ${{ inputs.min-score || '80' }}
+        run: |
+          read -ra repos <<< "$REPOSITORIES"
+          set +e
+          uv run --no-dev repo-posture "${repos[@]}" --min-score "$MIN_SCORE" > report.md
+          status=$?
+          set -e
+          cat report.md >> "$GITHUB_STEP_SUMMARY"
+          cat report.md
+          exit "$status"

@@ -1,0 +1,48 @@
+[project]
+name = "repo-posture"
+version = "0.1.0"
+description = "Scan a GitHub repository's security and governance posture and report what to fix."
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "Alex Moylan" }]
+requires-python = ">=3.11"
+dependencies = [
+  "httpx>=0.28,<1",
+  "pyyaml>=6.0.2,<7",
+]
+
+[project.scripts]
+repo-posture = "repo_posture.cli:main"
+
+[dependency-groups]
+dev = [
+  "mypy>=1.15",
+  "pytest>=8.3",
+  "pytest-cov>=6.0",
+  "respx>=0.22",
+  "ruff>=0.11",
+  "types-pyyaml>=6.0",
+]
+
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "SIM", "RUF"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S105", "S106"]
+
+[tool.mypy]
+strict = true
+packages = ["repo_posture"]
+mypy_path = "src"
+
+[tool.pytest.ini_options]
+addopts = "--cov=repo_posture --cov-report=term-missing --cov-fail-under=90"
+testpaths = ["tests"]
