@@ -114,6 +114,8 @@ Measured on 17 November 2026 (no estimates):
 | Scan time | about **3–4 seconds per repository** for 13 checks (local run, including start-up) |
 | Real scan, admin token (`Ajmoylan/moylan-os`) | **92/100, 100% coverage**: 11 passed; found 2 gaps (CODEOWNERS, license) |
 | Same repository, no token | 89/100, **71% coverage**: the 3 admin-only checks correctly reported unknown |
+| This repository, first automated scan ([posture run](https://github.com/Ajmoylan/repo-posture/actions/runs/44112645762)) | **85/100**: flagged that `main` accepted direct pushes (the ruleset wasn't created yet) |
+| This repository, after adding the `protect-main` ruleset | **100/100, 100% coverage** (admin token); 100/100 at 71% coverage without one |
 
 ## Run it
 
