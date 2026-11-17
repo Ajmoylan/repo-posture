@@ -145,6 +145,10 @@ rate limited, API failure).
 How Copilot could fit this workflow, and what has and hasn't been demonstrated, is in
 [docs/COPILOT.md](docs/COPILOT.md).
 
+**Development note:** This project was developed using AI-assisted coding tools. Its
+functionality is supported by automated tests and reproducible security scans. The GitHub Copilot
+documentation distinguishes proposed applications from capabilities actually demonstrated.
+
 ## Limitations and next steps
 
 - Scans one repository at a time; organisation-wide scans (listing an org's repositories) and a
