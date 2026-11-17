@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Static page: no inline code, no third-party resources, no network calls except this
+         site's own report files. GitHub Pages can't send headers, so the CSP is a meta tag. -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'"
+    />
+    <meta name="referrer" content="no-referrer" />
+    <meta
+      name="description"
+      content="GitHub security and governance posture dashboard for repo-posture scan reports."
+    />
+    <title>repo-posture · GitHub Security Posture Dashboard</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="js/app.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to the dashboard</a>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="brand" href="./">
+          <img src="favicon.svg" alt="" width="28" height="28" />
+          <span><strong>repo-posture</strong> <span class="muted">Security Posture</span></span>
+        </a>
+        <nav aria-label="Sections">
+          <a href="#overview">Overview</a>
+          <a href="#controls">Controls</a>
+          <a href="#remediation">Remediation</a>
+          <a href="#comparison">Before / after</a>
+          <a href="#import">Import</a>
+          <a href="#copilot">Copilot</a>
+          <a href="https://github.com/Ajmoylan/repo-posture" rel="noopener">GitHub ↗</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="wrap">
+      <section class="hero" aria-labelledby="title">
+        <p class="eyebrow">GitHub security &amp; governance assessment</p>
+        <h1 id="title">Know where every repository stands, and what to fix first.</h1>
+        <p class="lede">
+          Scored results from <code>repo-posture</code>, a read-only scanner covering 13 controls
+          across GitHub rulesets, Advanced Security, Dependabot and Actions hardening.
+        </p>
+        <p class="notice" role="note">
+          <strong>Saved reports, not live scans.</strong> Each report below is a JSON file the CLI
+          produced at the time shown. This page holds no GitHub token and never calls the GitHub
+          API; imported files stay in your browser.
+        </p>
+      </section>
+
+      <section class="picker" aria-label="Choose a report">
+        <div class="tabs" role="tablist" id="report-tabs"></div>
+        <p class="provenance" id="provenance"></p>
+      </section>
+
+      <section id="overview" class="grid-overview" aria-labelledby="overview-title">
+        <h2 id="overview-title" class="sr-only">Overview</h2>
+        <article class="card score-card">
+          <div class="ring" id="score-ring"></div>
+          <div>
+            <p class="eyebrow" id="score-repo"></p>
+            <p class="grade" id="score-grade"></p>
+            <p class="muted small" id="score-time"></p>
+          </div>
+        </article>
+        <article class="card stat-card">
+          <h3>Assessment coverage</h3>
+          <p class="stat" id="coverage-value"></p>
+          <div class="meter" id="coverage-meter" role="img"></div>
+          <p class="muted small" id="coverage-note"></p>
+        </article>
+        <article class="card stat-card">
+          <h3>Controls</h3>
+          <ul class="tally" id="tally"></ul>
+          <div class="stack" id="stack-bar" role="img"></div>
+        </article>
+      </section>
+
+      <section id="controls" aria-labelledby="controls-title">
+        <div class="section-head">
+          <h2 id="controls-title">The 13 controls</h2>
+          <p class="muted">Grouped by area. Weight reflects how directly a control prevents incidents.</p>
+        </div>
+        <div class="areas" id="areas"></div>
+      </section>
+
+      <section id="remediation" aria-labelledby="remediation-title">
+        <div class="section-head">
+          <h2 id="remediation-title">Prioritised remediation</h2>
+          <p class="muted">Ordered by the score points each fix adds. Unknown checks come next: verifying them raises coverage.</p>
+        </div>
+        <ol class="plan" id="plan"></ol>
+      </section>
+
+      <section id="comparison" aria-labelledby="comparison-title">
+        <div class="section-head">
+          <h2 id="comparison-title">Before / after: repo-posture's own repository</h2>
+          <p class="muted">Two real scans of this project. The first automated scan caught that <code>main</code> had no ruleset; after adding one, the scan reports 100/100.</p>
+        </div>
+        <div class="compare" id="compare"></div>
+      </section>
+
+      <section id="import" aria-labelledby="import-title">
+        <div class="section-head">
+          <h2 id="import-title">Import a report</h2>
+          <p class="muted">Load JSON from <code>repo-posture owner/repo --format json</code>. It's validated, read only in this browser tab and never uploaded.</p>
+        </div>
+        <div class="card dropzone" id="dropzone">
+          <p><strong>Drop a .json report here</strong> or</p>
+          <label class="button" for="file-input">Choose file</label>
+          <input id="file-input" type="file" accept="application/json,.json" class="sr-only" />
+          <p class="status-line" id="import-status" role="status" aria-live="polite"></p>
+        </div>
+        <pre class="cmd"><code>uv run repo-posture your-org/your-repo --format json &gt; report.json</code></pre>
+      </section>
+
+      <section id="copilot" aria-labelledby="copilot-title">
+        <div class="section-head">
+          <h2 id="copilot-title">GitHub Copilot and developer productivity</h2>
+          <p class="muted">What this project actually implements, kept separate from where Copilot could help next.</p>
+        </div>
+        <div class="two-col">
+          <article class="card">
+            <p class="badge badge-pass">Implemented and verifiable</p>
+            <ul class="checklist">
+              <li>Read-only scanner: 13 controls, pass / fail / unknown, weighted score and coverage</li>
+              <li>CI on Python 3.11–3.13: Ruff, <code>mypy --strict</code>, pytest with a 90% coverage floor</li>
+              <li>CodeQL for Python, JavaScript and the workflows; dependency review on every PR</li>
+              <li>Dependabot, secret scanning with push protection, private vulnerability reporting</li>
+              <li>Ruleset on <code>main</code>: pull request and passing checks required</li>
+              <li>Scheduled posture workflow that publishes its report to the job summary and gates on a minimum score</li>
+              <li>This dashboard, deployed by GitHub Actions to GitHub Pages</li>
+            </ul>
+          </article>
+          <article class="card">
+            <p class="badge badge-unknown">Recommended · not demonstrated here</p>
+            <ul class="checklist recommend">
+              <li><strong>Copilot code completion and Chat:</strong> draft a new check and its tests from the existing patterns</li>
+              <li><strong>Copilot Autofix:</strong> propose fixes for CodeQL alerts, reviewed in a pull request</li>
+              <li><strong>Copilot code review:</strong> a first-pass review on each PR, before the owner's review</li>
+              <li><strong>Copilot coding agent:</strong> open draft PRs for small, well-defined issues, held to the same CI and security gates</li>
+              <li><strong>Measuring impact:</strong> time from issue to merge, first-run CI pass rate and Copilot usage metrics, before and after adoption</li>
+            </ul>
+          </article>
+        </div>
+        <p class="muted small">
+          The project was developed with AI-assisted coding tools; its behaviour is backed by the
+          automated tests and security scans above. No Copilot usage or productivity figures are
+          claimed. <a href="https://github.com/Ajmoylan/repo-posture/blob/main/docs/COPILOT.md" rel="noopener">Read the Copilot notes ↗</a>
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap">
+        <p>
+          <a href="https://github.com/Ajmoylan/repo-posture" rel="noopener">repo-posture</a> ·
+          MIT licensed · Built by Alex Moylan · Reports are point-in-time snapshots.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+[
+  {
+    "file": "moylan-os.json",
+    "id": "moylan-os",
+    "label": "MOYLAN//OS",
+    "role": "example",
+    "provenance": "Saved output of repo-posture Ajmoylan/moylan-os --format json, run with an admin token. A snapshot, not a live scan."
+  },
+  {
+    "file": "repo-posture-before.json",
+    "id": "repo-posture-before",
+    "label": "repo-posture (before)",
+    "role": "before",
+    "provenance": "The first automated scan of this repository (posture workflow run 44112645762, no admin token), converted from that run's published report to the CLI's JSON format. A snapshot, not a live scan.",
+    "source_url": "https://github.com/Ajmoylan/repo-posture/actions/runs/44112645762"
+  },
+  {
+    "file": "repo-posture-after.json",
+    "id": "repo-posture-after",
+    "label": "repo-posture (after)",
+    "role": "after",
+    "provenance": "Saved output of repo-posture Ajmoylan/repo-posture --format json after the protect-main ruleset was added, run with an admin token. A snapshot, not a live scan."
+  }
+]

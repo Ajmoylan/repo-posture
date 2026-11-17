@@ -1,0 +1,112 @@
+{
+  "repository": "Ajmoylan/moylan-os",
+  "scanned_at": "2026-11-17T15:50:13Z",
+  "score": 92,
+  "coverage": 100,
+  "checks": [
+    {
+      "id": "branch-protection",
+      "title": "Default branch protected",
+      "status": "pass",
+      "weight": 4,
+      "detail": "A ruleset requires pull requests on main.",
+      "remediation": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets"
+    },
+    {
+      "id": "code-scanning",
+      "title": "Code scanning (CodeQL)",
+      "status": "pass",
+      "weight": 4,
+      "detail": "CodeQL runs in a workflow (advanced setup).",
+      "remediation": "https://docs.github.com/en/code-security/code-scanning/enabling-code-scanning/configuring-default-setup-for-code-scanning"
+    },
+    {
+      "id": "secret-scanning",
+      "title": "Secret scanning",
+      "status": "pass",
+      "weight": 4,
+      "detail": "Enabled.",
+      "remediation": "https://docs.github.com/en/code-security/secret-scanning/enabling-secret-scanning-features/enabling-secret-scanning-for-your-repository"
+    },
+    {
+      "id": "push-protection",
+      "title": "Secret scanning push protection",
+      "status": "pass",
+      "weight": 4,
+      "detail": "Enabled: pushes containing detected secrets are blocked.",
+      "remediation": "https://docs.github.com/en/code-security/secret-scanning/enabling-secret-scanning-features/enabling-push-protection-for-your-repository"
+    },
+    {
+      "id": "dependabot-security-updates",
+      "title": "Dependabot security updates",
+      "status": "pass",
+      "weight": 3,
+      "detail": "Enabled: fixes for vulnerable dependencies are proposed as PRs.",
+      "remediation": "https://docs.github.com/en/code-security/dependabot/dependabot-security-updates/configuring-dependabot-security-updates"
+    },
+    {
+      "id": "dependabot-version-updates",
+      "title": "Dependabot version updates",
+      "status": "pass",
+      "weight": 3,
+      "detail": "Configured in .github/dependabot.yml.",
+      "remediation": "https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuring-dependabot-version-updates"
+    },
+    {
+      "id": "dependency-review",
+      "title": "Dependency review on pull requests",
+      "status": "pass",
+      "weight": 2,
+      "detail": "dependency-review-action runs in a workflow.",
+      "remediation": "https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/configuring-the-dependency-review-action"
+    },
+    {
+      "id": "ci-workflows",
+      "title": "GitHub Actions CI",
+      "status": "pass",
+      "weight": 3,
+      "detail": "3 workflow(s): ci.yml, codeql.yml, dependency-review.yml.",
+      "remediation": "https://docs.github.com/en/actions/about-github-actions"
+    },
+    {
+      "id": "pinned-actions",
+      "title": "Actions pinned to full commit SHAs",
+      "status": "pass",
+      "weight": 3,
+      "detail": "Every action is pinned to a full commit SHA.",
+      "remediation": "https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions#using-third-party-actions"
+    },
+    {
+      "id": "workflow-permissions",
+      "title": "Least-privilege GITHUB_TOKEN",
+      "status": "pass",
+      "weight": 3,
+      "detail": "Every workflow declares its token permissions.",
+      "remediation": "https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token"
+    },
+    {
+      "id": "codeowners",
+      "title": "Code owners",
+      "status": "fail",
+      "weight": 2,
+      "detail": "No CODEOWNERS file: reviews aren't routed to the right owners.",
+      "remediation": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners"
+    },
+    {
+      "id": "security-policy",
+      "title": "Security policy (SECURITY.md)",
+      "status": "pass",
+      "weight": 2,
+      "detail": "Found docs/SECURITY.md.",
+      "remediation": "https://docs.github.com/en/code-security/getting-started/adding-a-security-policy-to-your-repository"
+    },
+    {
+      "id": "license",
+      "title": "License",
+      "status": "fail",
+      "weight": 1,
+      "detail": "No license detected: others can't safely reuse the code.",
+      "remediation": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository"
+    }
+  ]
+}
