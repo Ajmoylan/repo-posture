@@ -12,9 +12,9 @@ in this workflow, based on Copilot's documented features, so the claims can be c
 | Adding a new check (one function in `checks.py`) | Code completion, Copilot Chat in the IDE | Draft the function from the existing pattern and a docstring | Deciding what the check should prove, and the pass/fail/unknown rules |
 | Writing the tests for that check | Copilot Chat (`/tests`) | Propose respx-mocked cases following `tests/conftest.py` | Making sure failure and "unknown" paths are tested, not just the happy path |
 | Explaining a CodeQL alert | Copilot Autofix for code scanning | Suggest a fix on the alert, reviewed in a PR | Reviewing the fix; CI and CodeQL must pass again |
-| Reviewing pull requests | Copilot code review | A first-pass review comment on each PR | CODEOWNERS approval is still required by the ruleset |
+| Reviewing pull requests | Copilot code review | A first-pass review comment on each PR | CODEOWNERS still routes every PR to its owner for review |
 | Writing workflow YAML | Copilot Chat | Draft jobs and steps | Pinning actions to SHAs and keeping `permissions` minimal: the scanner checks both |
-| Small, well-defined issues (for example, "add a check for `.github/FUNDING.yml`") | Copilot coding agent | Open a draft PR from an issue | The same CI, CodeQL, dependency review and code-owner review gates apply |
+| Small, well-defined issues (for example, "add a check for `.github/FUNDING.yml`") | Copilot coding agent | Open a draft PR from an issue | The same CI, CodeQL and dependency review gates apply, and the owner reviews the PR |
 
 ## Guardrails that apply whatever writes the code
 
